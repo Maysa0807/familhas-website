@@ -5,7 +5,7 @@ import com.app.familhas_website.city.CityEntity;
 import com.app.familhas_website.flight.FlightEntity;
 import com.app.familhas_website.rating.RatingEntity;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 import org.hibernate.loader.ast.internal.CacheEntityLoaderHelper;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.security.web.server.csrf.ServerCsrfTokenRequestAttributeHandler;
@@ -18,6 +18,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "travel_packages")
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class TravelPackageEntity {
 
     @Id
@@ -60,45 +64,5 @@ public class TravelPackageEntity {
     @Builder.Default
     private List<RatingEntity> ratings = new ArrayList<>();
 
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public BigDecimal getPricePromotion() {
-        return pricePromotion;
-    }
-
-    public void setPricePromotion(BigDecimal pricePromotion) {
-        this.pricePromotion = pricePromotion;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
 }

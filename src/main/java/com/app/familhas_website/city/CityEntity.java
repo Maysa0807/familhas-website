@@ -1,7 +1,7 @@
 package com.app.familhas_website.city;
 
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 import org.hibernate.loader.ast.internal.CacheEntityLoaderHelper;
 
 import java.util.UUID;
@@ -9,6 +9,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "cities")
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CityEntity {
 
     @Id
@@ -30,28 +34,5 @@ public class CityEntity {
     CacheEntityLoaderHelper.EntityStatus status;
 
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 
 }

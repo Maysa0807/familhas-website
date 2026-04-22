@@ -3,7 +3,7 @@ package com.app.familhas_website.client;
 import com.app.familhas_website.rating.RatingEntity;
 import com.app.familhas_website.travelPackage.TravelPackageEntity;
 import jakarta.persistence.*;
-import lombok.Builder;
+import lombok.*;
 import org.hibernate.loader.ast.internal.CacheEntityLoaderHelper;
 
 import java.util.ArrayList;
@@ -13,6 +13,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "clients")
 @Builder
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientEntity {
 
     @Id
@@ -54,48 +58,6 @@ public class ClientEntity {
     @OneToMany(mappedBy = "client")
     @Builder.Default
     private List<RatingEntity> ratings = new ArrayList<>();
-
-
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
 
 }
