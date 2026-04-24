@@ -1,7 +1,6 @@
 package com.app.familhas_website.category;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class CategoryService {
     }
 
     @Transactional(readOnly = true)
-    public CategoryResponse findById(UUID id) {
+    public CategoryResponse findById(Long id) {
         return toResponse(getCategoryOrThrow(id));
     }
 
@@ -37,18 +36,18 @@ public class CategoryService {
         return toResponse(categoryRepository.save(category));
     }
 
-    public CategoryResponse update(UUID id, CategoryRequest request) {
+    public CategoryResponse update(Long id, CategoryRequest request) {
         CategoryEntity category = getCategoryOrThrow(id);
         apply(category, request);
         return toResponse(categoryRepository.save(category));
     }
 
-    public void delete(UUID id) {
+    public void delete(Long id) {
         CategoryEntity category = getCategoryOrThrow(id);
         categoryRepository.delete(category);
     }
 
-    private CategoryEntity getCategoryOrThrow(UUID id) {
+    private CategoryEntity getCategoryOrThrow(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Category not found: " + id));
     }

@@ -1,7 +1,6 @@
 package com.app.familhas_website.rating;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +34,7 @@ public class RatingController {
     }
 
     @GetMapping("/{id}")
-    public RatingResponse findById(@PathVariable UUID id) {
+    public RatingResponse findById(@PathVariable Long id) {
         return ratingService.findById(id);
     }
 
@@ -45,12 +44,12 @@ public class RatingController {
     }
 
     @PutMapping("/{id}")
-    public RatingResponse update(@PathVariable UUID id, @RequestBody @Valid RatingRequest request) {
+    public RatingResponse update(@PathVariable Long id, @RequestBody @Valid RatingRequest request) {
         return ratingService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         ratingService.delete(id);
         return ResponseEntity.noContent().build();
     }

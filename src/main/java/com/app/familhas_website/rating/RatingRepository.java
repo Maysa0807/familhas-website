@@ -1,12 +1,10 @@
 package com.app.familhas_website.rating;
 
-import java.util.UUID;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface RatingRepository extends JpaRepository<RatingEntity, UUID> {
+public interface RatingRepository extends JpaRepository<RatingEntity, Long> {
 
-    boolean existsByClient_IdAndTravelPackage_Id(UUID clientId, UUID travelPackageId);
+    boolean existsByClient_IdAndTravelPackage_Id(Long clientId, Long travelPackageId);
 
-    boolean existsByClient_IdAndTravelPackage_IdAndIdNot(UUID clientId, UUID travelPackageId, UUID id);
+    boolean existsByClient_IdAndTravelPackage_IdAndIdNot(Long clientId, Long travelPackageId, Long id);
 }

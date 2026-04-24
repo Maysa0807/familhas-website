@@ -2,7 +2,6 @@ package com.app.familhas_website.travelPackage;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -35,7 +34,7 @@ public class TravelPackageService {
     }
 
     @Transactional(readOnly = true)
-    public TravelPackageResponse findById(UUID id) {
+    public TravelPackageResponse findById(Long id) {
         return toResponse(getTravelPackageOrThrow(id));
     }
 
@@ -46,14 +45,14 @@ public class TravelPackageService {
         return toResponse(travelPackageRepository.save(travelPackage));
     }
 
-    public TravelPackageResponse update(UUID id, TravelPackageRequest request) {
+    public TravelPackageResponse update(Long id, TravelPackageRequest request) {
         validateTravelPackageBusinessRules(request);
         TravelPackageEntity travelPackage = getTravelPackageOrThrow(id);
         apply(travelPackage, request);
         return toResponse(travelPackageRepository.save(travelPackage));
     }
 
-    public void delete(UUID id) {
+    public void delete(Long id) {
         TravelPackageEntity travelPackage = getTravelPackageOrThrow(id);
         travelPackageRepository.delete(travelPackage);
     }
@@ -72,12 +71,12 @@ public class TravelPackageService {
         }
     }
 
-    private TravelPackageEntity getTravelPackageOrThrow(UUID id) {
+    private TravelPackageEntity getTravelPackageOrThrow(Long id) {
         return travelPackageRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Travel package not found: " + id));
     }
 
-    private <T> T getReferenceOrThrow(Class<T> entityClass, UUID id, String label) {
+    private <T> T getReferenceOrThrow(Class<T> entityClass, Long id, String label) {
         T entity = entityManager.find(entityClass, id);
         if (entity == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, label + " not found: " + id);

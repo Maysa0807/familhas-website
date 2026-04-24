@@ -1,7 +1,6 @@
 package com.app.familhas_website.travelPackage.dto;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import com.app.familhas_website.enums.EntityStatus;
 
@@ -18,10 +17,10 @@ public record TravelPackageRequest(
         @DecimalMin(value = "0.0", inclusive = true) BigDecimal pricePromotion,
         @NotNull EntityStatus status,
         @Size(max = 500) String imageUrl,
-        @NotNull UUID flightId,
-        @NotNull UUID categoryId,
-        @NotNull UUID originCityId,
-        @NotNull UUID destinationCityId) {
+        @NotNull Long flightId,
+        @NotNull Long categoryId,
+        @NotNull Long originCityId,
+        @NotNull Long destinationCityId) {
 }
 
 

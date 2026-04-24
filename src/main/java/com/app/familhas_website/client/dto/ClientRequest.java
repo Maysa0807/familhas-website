@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
-import java.util.UUID;
 
 public record ClientRequest (
         @NotBlank
@@ -19,8 +18,8 @@ public record ClientRequest (
         @NotBlank
         @Size(min = 8, max = 255) String password,
         @NotNull EntityStatus status,
-        List<UUID> favoriteIds,
-        List<UUID> myFlightIds) {
+        List<Long> favoriteIds,
+        List<Long> myFlightIds) {
 
     public ClientRequest {
         favoriteIds = favoriteIds == null ? List.of() : List.copyOf(favoriteIds);

@@ -1,13 +1,13 @@
 package com.app.familhas_website.flight;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,8 +25,9 @@ import lombok.Setter;
 public class FlightEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_flights_generator")
+    @SequenceGenerator(name = "seq_flights_generator", sequenceName = "seq_flights", allocationSize = 1)
+    private Long id;
 
     @Column(nullable = false, length = 120)
     private String companyName;
