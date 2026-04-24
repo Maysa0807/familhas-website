@@ -12,8 +12,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.app.familhas_website.category.CategoryEntity;
 import com.app.familhas_website.city.CityEntity;
 import com.app.familhas_website.flight.FlightEntity;
-import com.app.familhas_website.travelpackage.dto.TravelPackageRequest;
-import com.app.familhas_website.travelpackage.dto.TravelPackageResponse;
+import com.app.familhas_website.travelPackage.dto.TravelPackageRequest;
+import com.app.familhas_website.travelPackage.dto.TravelPackageResponse;
 
 import jakarta.persistence.EntityManager;
 
@@ -119,6 +119,8 @@ public class TravelPackageService {
                 travelPackage.getDestination().getId());
     }
 }
+
+
 
 
 

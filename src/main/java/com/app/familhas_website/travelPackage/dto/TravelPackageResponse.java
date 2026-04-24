@@ -1,4 +1,4 @@
-package com.app.familhas_website.travelpackage.dto;
+package com.app.familhas_website.travelPackage.dto;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -17,6 +17,8 @@ public record TravelPackageResponse(
         UUID originCityId,
         UUID destinationCityId) {
 }
+
+
 
 
 

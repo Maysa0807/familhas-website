@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import com.app.familhas_website.enums.EntityStatus;
-import com.app.familhas_website.travelpackage.TravelPackageEntity;
+import com.app.familhas_website.travelPackage.TravelPackageEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -52,3 +52,4 @@ public class CategoryEntity {
     @Builder.Default
     private List<TravelPackageEntity> travelPackages = new ArrayList<>();
 }
+

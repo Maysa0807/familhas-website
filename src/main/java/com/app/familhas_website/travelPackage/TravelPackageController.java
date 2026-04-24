@@ -1,4 +1,4 @@
-package com.app.familhas_website.travelpackage;
+package com.app.familhas_website.travelPackage;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.familhas_website.travelpackage.dto.TravelPackageRequest;
-import com.app.familhas_website.travelpackage.dto.TravelPackageResponse;
+import com.app.familhas_website.travelPackage.dto.TravelPackageRequest;
+import com.app.familhas_website.travelPackage.dto.TravelPackageResponse;
 
 import jakarta.validation.Valid;
 
@@ -55,6 +55,8 @@ public class TravelPackageController {
         return ResponseEntity.noContent().build();
     }
 }
+
+
 
 
 
