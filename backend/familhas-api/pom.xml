@@ -8,11 +8,11 @@
 		<version>3.5.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.app</groupId>
-	<artifactId>familhas-website</artifactId>
+	<groupId>br.com.familhas</groupId>
+	<artifactId>familhas-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>familhas-website</name>
-	<description>Demo project for Spring Boot</description>
+	<name>familhas-api</name>
+	<description>API da plataforma Familhas (Loja e Admin)</description>
 	<url/>
 	<licenses>
 		<license/>
