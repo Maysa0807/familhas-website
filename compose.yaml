@@ -1,7 +1,5 @@
-services:
-  oracle:
-    image: 'gvenzl/oracle-free:latest'
-    environment:
-      - 'ORACLE_PASSWORD=secret'
-    ports:
-      - '1521'
+# Ponto de entrada da infraestrutura local: `docker compose up -d` na raiz.
+# A definição dos serviços fica em infra/docker-compose.yml (Oracle, RabbitMQ, Keycloak, MailHog).
+include:
+  - infra/docker-compose.yml
+

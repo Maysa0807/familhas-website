@@ -1,0 +1,126 @@
+package br.com.familhas.travelPackage;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import br.com.familhas.category.CategoryEntity;
+import br.com.familhas.city.CityEntity;
+import br.com.familhas.flight.FlightEntity;
+import br.com.familhas.travelPackage.dto.TravelPackageRequest;
+import br.com.familhas.travelPackage.dto.TravelPackageResponse;
+
+import jakarta.persistence.EntityManager;
+
+@Service
+@Transactional
+public class TravelPackageService {
+
+    private final TravelPackageRepository travelPackageRepository;
+    private final EntityManager entityManager;
+
+    public TravelPackageService(TravelPackageRepository travelPackageRepository, EntityManager entityManager) {
+        this.travelPackageRepository = travelPackageRepository;
+        this.entityManager = entityManager;
+    }
+
+    @Transactional(readOnly = true)
+    public List<TravelPackageResponse> findAll() {
+        return travelPackageRepository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public TravelPackageResponse findById(UUID id) {
+        return toResponse(getTravelPackageOrThrow(id));
+    }
+
+    public TravelPackageResponse create(TravelPackageRequest request) {
+        validateTravelPackageBusinessRules(request);
+        TravelPackageEntity travelPackage = new TravelPackageEntity();
+        apply(travelPackage, request);
+        return toResponse(travelPackageRepository.save(travelPackage));
+    }
+
+    public TravelPackageResponse update(UUID id, TravelPackageRequest request) {
+        validateTravelPackageBusinessRules(request);
+        TravelPackageEntity travelPackage = getTravelPackageOrThrow(id);
+        apply(travelPackage, request);
+        return toResponse(travelPackageRepository.save(travelPackage));
+    }
+
+    public void delete(UUID id) {
+        TravelPackageEntity travelPackage = getTravelPackageOrThrow(id);
+        travelPackageRepository.delete(travelPackage);
+    }
+
+    private void validateTravelPackageBusinessRules(TravelPackageRequest request) {
+        if (request.originCityId().equals(request.destinationCityId())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "originCityId and destinationCityId must be different");
+        }
+        BigDecimal promotion = request.pricePromotion();
+        if (promotion != null) {
+            if (promotion.compareTo(request.price()) >= 0) {
+                throw new ResponseStatusException(
+                        HttpStatus.BAD_REQUEST, "pricePromotion must be less than price when provided");
+            }
+        }
+    }
+
+    private TravelPackageEntity getTravelPackageOrThrow(UUID id) {
+        return travelPackageRepository.findById(id).orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Travel package not found: " + id));
+    }
+
+    private <T> T getReferenceOrThrow(Class<T> entityClass, UUID id, String label) {
+        T entity = entityManager.find(entityClass, id);
+        if (entity == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, label + " not found: " + id);
+        }
+        return entity;
+    }
+
+    private void apply(TravelPackageEntity travelPackage, TravelPackageRequest request) {
+        travelPackage.setTitle(request.title().trim());
+        travelPackage.setPrice(request.price());
+        travelPackage.setPricePromotion(request.pricePromotion());
+        travelPackage.setStatus(request.status());
+        travelPackage.setImageUrl(blankToNull(request.imageUrl()));
+        travelPackage.setFlight(getReferenceOrThrow(FlightEntity.class, request.flightId(), "Flight"));
+        travelPackage.setCategory(getReferenceOrThrow(CategoryEntity.class, request.categoryId(), "Category"));
+        travelPackage.setOrigin(getReferenceOrThrow(CityEntity.class, request.originCityId(), "Origin city"));
+        travelPackage.setDestination(
+                getReferenceOrThrow(CityEntity.class, request.destinationCityId(), "Destination city"));
+    }
+
+    private static String blankToNull(String s) {
+        if (s == null || s.isBlank()) {
+            return null;
+        }
+        return s.trim();
+    }
+
+    private TravelPackageResponse toResponse(TravelPackageEntity travelPackage) {
+        return new TravelPackageResponse(
+                travelPackage.getId(),
+                travelPackage.getTitle(),
+                travelPackage.getPrice(),
+                travelPackage.getPricePromotion(),
+                travelPackage.getStatus(),
+                travelPackage.getImageUrl(),
+                travelPackage.getFlight().getId(),
+                travelPackage.getCategory().getId(),
+                travelPackage.getOrigin().getId(),
+                travelPackage.getDestination().getId());
+    }
+}
+
+
+
+
+

@@ -1,0 +1,49 @@
+package br.com.familhas.client;
+
+import br.com.familhas.client.dto.ClientRequest;
+import br.com.familhas.client.dto.ClientResponse;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@RestController
+@RequestMapping("/clients")
+public class ClientController {
+
+    private final ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
+    @GetMapping
+    public List<ClientResponse> findAll() {
+        return clientService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ClientResponse findById(@PathVariable UUID id) {
+        return clientService.findById(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<ClientResponse> create(@RequestBody @Valid ClientRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(clientService.create(request));
+    }
+
+    @PutMapping("/{id}")
+    public ClientResponse update(@PathVariable UUID id, @RequestBody @Valid ClientRequest request) {
+        return clientService.update(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
+        clientService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+}

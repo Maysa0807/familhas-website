@@ -31,3 +31,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Segredos e artefatos locais ###
+.env
+*.p12
+*.jks
+infra/keycloak/keystore/*
+!infra/keycloak/keystore/.gitkeep

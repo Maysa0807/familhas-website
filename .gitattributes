@@ -1,0 +1,14 @@
+# Normaliza finais de linha no repositório
+* text=auto
+
+# Scripts Unix precisam de LF (CI Linux e containers)
+mvnw text eol=lf
+*.sh text eol=lf
+
+# Scripts Windows usam CRLF
+*.cmd text eol=crlf
+
+# Binários
+*.jar binary
+*.p12 binary
+
