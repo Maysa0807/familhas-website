@@ -1,5 +1,7 @@
 package br.com.familhas.rating;
 
+import java.util.UUID;
+
 import br.com.familhas.client.ClientEntity;
 import br.com.familhas.travelPackage.TravelPackageEntity;
 
@@ -11,7 +13,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +30,8 @@ import lombok.Setter;
 public class RatingEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_ratings_generator")
-    @SequenceGenerator(name = "seq_ratings_generator", sequenceName = "seq_ratings", allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false)
     private Integer rating;

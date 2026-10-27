@@ -1,9 +1,10 @@
 package br.com.familhas.flight.dto;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public record FlightResponse(
-        Long id,
+        UUID id,
         String companyName,
         LocalDateTime boardingDate,
         LocalDateTime returnDate,

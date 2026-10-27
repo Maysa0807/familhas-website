@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "clients")
@@ -19,9 +20,8 @@ import java.util.List;
 public class ClientEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_clients_generator")
-    @SequenceGenerator(name = "seq_clients_generator", sequenceName = "seq_clients", allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, length = 180)
     private String name;

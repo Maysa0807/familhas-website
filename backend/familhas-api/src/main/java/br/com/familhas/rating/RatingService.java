@@ -1,6 +1,7 @@
 package br.com.familhas.rating;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class RatingService {
     }
 
     @Transactional(readOnly = true)
-    public RatingResponse findById(Long id) {
+    public RatingResponse findById(UUID id) {
         return toResponse(getRatingOrThrow(id));
     }
 
@@ -43,19 +44,19 @@ public class RatingService {
         return toResponse(ratingRepository.save(rating));
     }
 
-    public RatingResponse update(Long id, RatingRequest request) {
+    public RatingResponse update(UUID id, RatingRequest request) {
         assertUniqueRatingPerClientAndPackage(request.clientId(), request.travelPackageId(), id);
         RatingEntity rating = getRatingOrThrow(id);
         apply(rating, request);
         return toResponse(ratingRepository.save(rating));
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         RatingEntity rating = getRatingOrThrow(id);
         ratingRepository.delete(rating);
     }
 
-    private void assertUniqueRatingPerClientAndPackage(Long clientId, Long travelPackageId, Long excludeRatingId) {
+    private void assertUniqueRatingPerClientAndPackage(UUID clientId, UUID travelPackageId, UUID excludeRatingId) {
         boolean duplicate;
         if (excludeRatingId == null) {
             duplicate = ratingRepository.existsByClient_IdAndTravelPackage_Id(clientId, travelPackageId);
@@ -69,12 +70,12 @@ public class RatingService {
         }
     }
 
-    private RatingEntity getRatingOrThrow(Long id) {
+    private RatingEntity getRatingOrThrow(UUID id) {
         return ratingRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Rating not found: " + id));
     }
 
-    private <T> T getReferenceOrThrow(Class<T> entityClass, Long id, String label) {
+    private <T> T getReferenceOrThrow(Class<T> entityClass, UUID id, String label) {
         T entity = entityManager.find(entityClass, id);
         if (entity == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, label + " not found: " + id);

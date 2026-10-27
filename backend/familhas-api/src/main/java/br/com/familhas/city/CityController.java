@@ -1,6 +1,7 @@
 package br.com.familhas.city;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class CityController {
     }
 
     @GetMapping("/{id}")
-    public CityResponse findById(@PathVariable Long id) {
+    public CityResponse findById(@PathVariable UUID id) {
         return cityService.findById(id);
     }
 
@@ -44,12 +45,12 @@ public class CityController {
     }
 
     @PutMapping("/{id}")
-    public CityResponse update(@PathVariable Long id, @RequestBody @Valid CityRequest request) {
+    public CityResponse update(@PathVariable UUID id, @RequestBody @Valid CityRequest request) {
         return cityService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         cityService.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,6 +1,7 @@
 package br.com.familhas.flight;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class FlightController {
     }
 
     @GetMapping("/{id}")
-    public FlightResponse findById(@PathVariable Long id) {
+    public FlightResponse findById(@PathVariable UUID id) {
         return flightService.findById(id);
     }
 
@@ -44,12 +45,12 @@ public class FlightController {
     }
 
     @PutMapping("/{id}")
-    public FlightResponse update(@PathVariable Long id, @RequestBody @Valid FlightRequest request) {
+    public FlightResponse update(@PathVariable UUID id, @RequestBody @Valid FlightRequest request) {
         return flightService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         flightService.delete(id);
         return ResponseEntity.noContent().build();
     }

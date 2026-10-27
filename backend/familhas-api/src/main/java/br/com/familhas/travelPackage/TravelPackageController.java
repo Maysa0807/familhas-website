@@ -1,6 +1,7 @@
 package br.com.familhas.travelPackage;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class TravelPackageController {
     }
 
     @GetMapping("/{id}")
-    public TravelPackageResponse findById(@PathVariable Long id) {
+    public TravelPackageResponse findById(@PathVariable UUID id) {
         return travelPackageService.findById(id);
     }
 
@@ -44,12 +45,12 @@ public class TravelPackageController {
     }
 
     @PutMapping("/{id}")
-    public TravelPackageResponse update(@PathVariable Long id, @RequestBody @Valid TravelPackageRequest request) {
+    public TravelPackageResponse update(@PathVariable UUID id, @RequestBody @Valid TravelPackageRequest request) {
         return travelPackageService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         return ResponseEntity.noContent().build();
     }
 }

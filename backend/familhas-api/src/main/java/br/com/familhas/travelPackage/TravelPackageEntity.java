@@ -3,6 +3,7 @@ package br.com.familhas.travelPackage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import br.com.familhas.category.CategoryEntity;
 import br.com.familhas.city.CityEntity;
@@ -21,7 +22,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,9 +39,8 @@ import lombok.Setter;
 public class TravelPackageEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_travel_packages_generator")
-    @SequenceGenerator(name = "seq_travel_packages_generator", sequenceName = "seq_travel_packages", allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, length = 180)
     private String title;

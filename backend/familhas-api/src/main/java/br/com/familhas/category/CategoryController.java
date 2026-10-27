@@ -1,6 +1,7 @@
 package br.com.familhas.category;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public CategoryResponse findById(@PathVariable Long id) {
+    public CategoryResponse findById(@PathVariable UUID id) {
         return categoryService.findById(id);
     }
 
@@ -44,12 +45,12 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public CategoryResponse update(@PathVariable Long id, @RequestBody @Valid CategoryRequest request) {
+    public CategoryResponse update(@PathVariable UUID id, @RequestBody @Valid CategoryRequest request) {
         return categoryService.update(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         categoryService.delete(id);
         return ResponseEntity.noContent().build();
     }

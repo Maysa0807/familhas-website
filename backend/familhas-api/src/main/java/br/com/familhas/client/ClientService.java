@@ -11,6 +11,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Service
@@ -31,7 +32,7 @@ public class ClientService {
     }
 
     @Transactional(readOnly = true)
-    public ClientResponse findById(Long id) {
+    public ClientResponse findById(UUID id) {
         return toResponse(getClientOrThrow(id));
     }
 
@@ -42,19 +43,19 @@ public class ClientService {
         return toResponse(clientRepository.save(client));
     }
 
-    public ClientResponse update(Long id, ClientRequest request) {
+    public ClientResponse update(UUID id, ClientRequest request) {
         validateEmailUnique(request.email(), id);
         ClientEntity client = getClientOrThrow(id);
         apply(client, request);
         return toResponse(clientRepository.save(client));
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         ClientEntity client = getClientOrThrow(id);
         clientRepository.delete(client);
     }
 
-    private void validateEmailUnique(String email, Long excludeClientId) {
+    private void validateEmailUnique(String email, UUID excludeClientId) {
         String normalized = email.trim().toLowerCase();
         boolean conflict;
         if (excludeClientId == null) {
@@ -67,12 +68,12 @@ public class ClientService {
         }
     }
 
-    private ClientEntity getClientOrThrow(Long id) {
+    private ClientEntity getClientOrThrow(UUID id) {
         return clientRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Client not found: " + id));
     }
 
-    private TravelPackageEntity getTravelPackageOrThrow(Long id) {
+    private TravelPackageEntity getTravelPackageOrThrow(UUID id) {
         TravelPackageEntity entity = entityManager.find(TravelPackageEntity.class, id);
         if (entity == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Travel package not found: " + id);
@@ -80,12 +81,12 @@ public class ClientService {
         return entity;
     }
 
-    private List<TravelPackageEntity> mapTravelPackages(List<Long> ids) {
+    private List<TravelPackageEntity> mapTravelPackages(List<UUID> ids) {
         if (ids == null || ids.isEmpty()) {
             return new ArrayList<>();
         }
         List<TravelPackageEntity> mapped = new ArrayList<>();
-        for (Long id : ids) {
+        for (UUID id : ids) {
             mapped.add(getTravelPackageOrThrow(id));
         }
         return mapped;

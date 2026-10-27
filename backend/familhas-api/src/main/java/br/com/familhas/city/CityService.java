@@ -1,6 +1,7 @@
 package br.com.familhas.city;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class CityService {
     }
 
     @Transactional(readOnly = true)
-    public CityResponse findById(Long id) {
+    public CityResponse findById(UUID id) {
         return toResponse(getCityOrThrow(id));
     }
 
@@ -36,18 +37,18 @@ public class CityService {
         return toResponse(cityRepository.save(city));
     }
 
-    public CityResponse update(Long id, CityRequest request) {
+    public CityResponse update(UUID id, CityRequest request) {
         CityEntity city = getCityOrThrow(id);
         apply(city, request);
         return toResponse(cityRepository.save(city));
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         CityEntity city = getCityOrThrow(id);
         cityRepository.delete(city);
     }
 
-    private CityEntity getCityOrThrow(Long id) {
+    private CityEntity getCityOrThrow(UUID id) {
         return cityRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "City not found: " + id));
     }

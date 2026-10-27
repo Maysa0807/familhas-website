@@ -1,20 +1,21 @@
 package br.com.familhas.travelPackage.dto;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import br.com.familhas.enums.EntityStatus;
 
 public record TravelPackageResponse(
-        Long id,
+        UUID id,
         String title,
         BigDecimal price,
         BigDecimal pricePromotion,
         EntityStatus status,
         String imageUrl,
-        Long flightId,
-        Long categoryId,
-        Long originCityId,
-        Long destinationCityId) {
+        UUID flightId,
+        UUID categoryId,
+        UUID originCityId,
+        UUID destinationCityId) {
 }
 
 

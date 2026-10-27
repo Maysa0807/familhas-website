@@ -1,6 +1,7 @@
 package br.com.familhas.flight;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class FlightService {
     }
 
     @Transactional(readOnly = true)
-    public FlightResponse findById(Long id) {
+    public FlightResponse findById(UUID id) {
         return toResponse(getFlightOrThrow(id));
     }
 
@@ -37,14 +38,14 @@ public class FlightService {
         return toResponse(flightRepository.save(flight));
     }
 
-    public FlightResponse update(Long id, FlightRequest request) {
+    public FlightResponse update(UUID id, FlightRequest request) {
         validateFlightSchedule(request);
         FlightEntity flight = getFlightOrThrow(id);
         apply(flight, request);
         return toResponse(flightRepository.save(flight));
     }
 
-    public void delete(Long id) {
+    public void delete(UUID id) {
         FlightEntity flight = getFlightOrThrow(id);
         flightRepository.delete(flight);
     }
@@ -56,7 +57,7 @@ public class FlightService {
         }
     }
 
-    private FlightEntity getFlightOrThrow(Long id) {
+    private FlightEntity getFlightOrThrow(UUID id) {
         return flightRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Flight not found: " + id));
     }

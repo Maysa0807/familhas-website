@@ -2,6 +2,7 @@ package br.com.familhas.category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import br.com.familhas.enums.EntityStatus;
 import br.com.familhas.travelPackage.TravelPackageEntity;
@@ -14,7 +15,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,9 +32,8 @@ import lombok.Setter;
 public class CategoryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_categories_generator")
-    @SequenceGenerator(name = "seq_categories_generator", sequenceName = "seq_categories", allocationSize = 1)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @Column(nullable = false, length = 120)
     private String title;

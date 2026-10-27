@@ -1,10 +1,12 @@
 package br.com.familhas.rating.dto;
 
+import java.util.UUID;
+
 public record RatingResponse(
-        Long id,
+        UUID id,
         Integer rating,
-        Long clientId,
-        Long travelPackageId) {
+        UUID clientId,
+        UUID travelPackageId) {
 }
 
 
